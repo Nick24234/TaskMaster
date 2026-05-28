@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskMaster</title>
+<link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="container header-row">
+        <div>
+          <h1 class="app-title">TaskMaster</h1>
+          
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="card input-card" aria-label="Додавання задачі">
+        <form id="taskForm" class="task-form">
+          <div class="field">
+            <label for="titleInput">Завдання</label>
+            <input id="titleInput" name="title" type="text"  maxlength="200" required />
+          </div>
+
+          <div class="field">
+            <label for="prioritySelect">Пріоритет</label>
+            <select id="prioritySelect" name="priority" required>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Critical">Critical</option>
+            </select>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn btn-primary">Додати</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card list-card" aria-label="Фільтри та список задач">
+        <div class="filters" role="navigation" aria-label="Фільтри">
+          <a class="filter-link" href="#/all" data-route="#/all">Усі</a>
+          <a class="filter-link" href="#/active" data-route="#/active">Активні</a>
+          <a class="filter-link" href="#/completed" data-route="#/completed">Виконані</a>
+        </div>
+
+        <div class="tasks-header">
+          <div class="muted">Задач: <span id="tasksCount">0</span></div>
+          <div class="muted" id="activeFilterLabel"></div>
+        </div>
+
+        <ul id="tasksList" class="tasks" aria-live="polite"></ul>
+
+        <div id="emptyState" class="empty-state" hidden>
+          Немає задач за вибраним фільтром.
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
+
