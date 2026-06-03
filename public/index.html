@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskMaster</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+  <header class="app-header">
+    <div class="container header-row">
+      <div>
+        <h1 class="app-title">TaskMaster</h1>
+      </div>
+      <div id="userHeader" class="user-header" hidden>
+        <span id="userGreeting">Вітаємо, <strong id="usernameDisplay"></strong>!</span>
+        <button id="logoutBtn" class="btn btn-outline">Вийти</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="authCard" class="card auth-card">
+      <div class="auth-tabs">
+        <button id="tabLogin" type="button" class="auth-tab active">Вхід</button>
+        <button id="tabRegister" type="button" class="auth-tab">Реєстрація</button>
+      </div>
+
+      <div class="auth-slider-container">
+        <div id="authSlider" class="auth-slider">
+          <form id="loginForm" class="auth-form-body">
+            <div class="field">
+              <label for="loginUsername">Логін</label>
+              <input id="loginUsername" type="text" required placeholder="Введіть ваш логін" />
+            </div>
+            <div class="field">
+              <label for="loginPassword">Пароль</label>
+              <input id="loginPassword" type="password" required placeholder="Введіть ваш пароль" />
+            </div>
+            <div id="loginError" class="auth-error" hidden></div>
+            <div class="actions">
+              <button type="submit" class="btn btn-primary w-full">Увійти</button>
+            </div>
+          </form>
+
+          <form id="registerForm" class="auth-form-body">
+            <div class="field">
+              <label for="registerUsername">Логін</label>
+              <input id="registerUsername" type="text" required placeholder="Введіть новий логін" minlength="3" />
+            </div>
+            <div class="field">
+              <label for="registerPassword">Пароль</label>
+              <input id="registerPassword" type="password" required placeholder="Введіть новий пароль" minlength="4" />
+            </div>
+            <div id="registerError" class="auth-error" hidden></div>
+            <div id="registerSuccess" class="auth-success" hidden>Реєстрація успішна! Тепер ви можете увійти.</div>
+            <div class="actions">
+              <button type="submit" class="btn btn-primary w-full">Зареєструватися</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Task Content (shown when logged in) -->
+    <div id="taskContent" hidden>
+      <section class="card input-card" aria-label="Додавання задачі">
+        <form id="taskForm" class="task-form">
+          <div class="field">
+            <label for="titleInput">Завдання</label>
+            <input id="titleInput" name="title" type="text" maxlength="200" required
+              placeholder="Що потрібно зробити?" />
+          </div>
+
+          <div class="field">
+            <label for="prioritySelect">Пріоритет</label>
+            <select id="prioritySelect" name="priority" required>
+              <option value="Low">Low</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="High">High</option>
+              <option value="Critical">Critical</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="deadlineInput">Дедлайн</label>
+            <input id="deadlineInput" name="deadline" type="date" />
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn btn-primary">Додати</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="statsDashboard" class="card stats-card">
+        <div class="stats-grid">
+          <div class="stat-progress-container">
+            <div id="statsProgressRing" class="progress-ring">
+              <span id="statsPercent">0%</span>
+            </div>
+          </div>
+          <div class="stat-items">
+            <div class="stat-item">
+              <span class="stat-label">Всього</span>
+              <span id="statTotal" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Виконано</span>
+              <span id="statCompleted" class="stat-value text-ok">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Активні</span>
+              <span id="statActive" class="stat-value text-primary">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Прострочені</span>
+              <span id="statOverdue" class="stat-value text-danger">0</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card list-card" aria-label="Фільтри та список задач">
+        <div class="filters" role="navigation" aria-label="Фільтри">
+          <a class="filter-link" href="#/all" data-route="#/all">Усі</a>
+          <a class="filter-link" href="#/active" data-route="#/active">Активні</a>
+          <a class="filter-link" href="#/completed" data-route="#/completed">Виконані</a>
+        </div>
+
+        <div class="tasks-header">
+          <div class="muted">Задач: <span id="tasksCount">0</span></div>
+          <div class="muted" id="activeFilterLabel"></div>
+        </div>
+
+        <ul id="tasksList" class="tasks" aria-live="polite"></ul>
+
+        <div id="emptyState" class="empty-state" hidden>
+          Немає задач за вибраним фільтром.
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <dialog id="editModal" class="modal">
+    <div class="modal-content card">
+      <h2>Редагувати задачу</h2>
+      <form id="editForm" class="task-form edit-form">
+        <input type="hidden" id="editTaskId" />
+        
+        <div class="field">
+          <label for="editTitleInput">Завдання</label>
+          <input id="editTitleInput" name="title" type="text" maxlength="200" required />
+        </div>
+
+        <div class="field">
+          <label for="editPrioritySelect">Пріоритет</label>
+          <select id="editPrioritySelect" name="priority" required>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+            <option value="Critical">Critical</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="editDeadlineInput">Дедлайн</label>
+          <input id="editDeadlineInput" name="deadline" type="date" />
+        </div>
+
+        <div class="actions modal-actions">
+          <button type="button" id="closeEditModalBtn" class="btn btn-outline">Скасувати</button>
+          <button type="submit" class="btn btn-primary">Зберегти</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>

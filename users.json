@@ -1,0 +1,27 @@
+[
+  {
+    "username": "Test",
+    "passwordHash": "b25a10b8910730f8fa0ad02876b65b941067b5715ad382972c3550407587b583d811c2d85b94de7877b0634256bb083bed3b90572583d09869f13235aa22ed2b",
+    "salt": "34da5e50d999ad9a0269c7e8cbc6f273"
+  },
+  {
+    "username": "user_1780431154745",
+    "passwordHash": "0a33d14a37f69cb78315ae8de1a2be22d3271eb61030ccd0cfacb1762b43eb4fa2993b56e9ec76ceeb36f23003654b0a1c509863ae9bdab37104b153218d4713",
+    "salt": "e6bcfa10acbb875c4707bd31c51e22e3"
+  },
+  {
+    "username": "user_1780431159472",
+    "passwordHash": "09681b69bd29eda30304e0d8a13a2a0a8da606be674da22fc5e364b5c24f6390eefeab1c9f8da7a83c05bf85e8e352fcee1485fe15b9debba92cb98637a7d64d",
+    "salt": "d0ee7d1ac331abd4f7ac67218786afb7"
+  },
+  {
+    "username": "user_1780431194092",
+    "passwordHash": "0ece6f29ced87016be8f0b3b0b99c8bccd8a0af0246589559f909a83dd3a5f3b5040f1bcdbcfe5472ff0e16856f8265c734f2ccb4084c748ebd99159ae5e3d14",
+    "salt": "46f86984494fe26704234b192f1ef3bf"
+  },
+  {
+    "username": "Nick",
+    "passwordHash": "adb54953e5e54e5e421b5fdc4f8c5ff203a47fa5d0a3ee9e83830459ebe80378cf3f2c86fb6e6796b81536cbfb32634b35c7d31913087674756953f6212edf3e",
+    "salt": "b7431e4ca626ced01fbda9a579bfbd13"
+  }
+]
